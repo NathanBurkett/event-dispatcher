@@ -16,8 +16,7 @@ class EventDispatcher implements EventDispatcherInterface
      */
     public function addListenerProvider(ListenerProviderInterface $listenerProvider)
     {
-        $name = get_class($listenerProvider);
-        $this->listenerProviders[$name] = $listenerProvider;
+        $this->listenerProviders[] = $listenerProvider;
     }
 
     /**

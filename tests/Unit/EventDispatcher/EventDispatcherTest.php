@@ -21,7 +21,7 @@ class EventDispatcherTest extends TestCase
         $dispatcher->addListenerProvider($listenerProvider);
 
         $this->assertEquals([
-            get_class($listenerProvider) => $listenerProvider,
+            $listenerProvider,
         ], $dispatcher->getListenerProviders());
     }
 
@@ -106,7 +106,7 @@ class EventDispatcherTest extends TestCase
 
         $listenerProviderB->expects($this->exactly(0))->method('getListenersForEvent');
 
-        $dispatcher = new \NathanBurkett\EventDispatcher\EventDispatcher();
+        $dispatcher = new EventDispatcher();
 
         $dispatcher->addListenerProvider($listenerProviderA);
         $dispatcher->addListenerProvider($listenerProviderB);
