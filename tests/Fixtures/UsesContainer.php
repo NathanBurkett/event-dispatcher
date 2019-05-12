@@ -6,20 +6,38 @@ use Psr\Container\ContainerInterface;
 trait UsesContainer
 {
     /**
-     * @var ContainerInterface|Container
+     * @var ContainerInterface
      */
     protected $container;
 
-    protected function initContainer()
+    /**
+     * @return ContainerInterface|Container
+     */
+    protected function getContainer()
     {
-        $this->container = $this->getContainer();
+        if (!$this->container) {
+            $this->container = $this->getNewContainerInstance();
+        }
+
+        return $this->container;
     }
 
     /**
      * @return ContainerInterface
      */
-    protected function getContainer()
+    protected function getNewContainerInstance()
     {
         return new Container();
+    }
+
+    /**
+     * @param string $key
+     * @param mixed|null $concrete
+     *
+     * @return \League\Container\Definition\DefinitionInterface
+     */
+    protected function addToContainer(string $key, $concrete = null)
+    {
+        return $this->getContainer()->add($key, $concrete);
     }
 }

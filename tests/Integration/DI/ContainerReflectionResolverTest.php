@@ -8,20 +8,15 @@ class ContainerReflectionResolverTest extends TestCase
 {
     use UsesContainer;
 
-    protected function setUp(): void
-    {
-        $this->initContainer();
-    }
-
     public function testResolve()
     {
         $primaryDependencyOne = new PrimaryDependencyOne();
-        $this->container->add(PrimaryDependencyOne::class, $primaryDependencyOne);
+        $this->addToContainer(PrimaryDependencyOne::class, $primaryDependencyOne);
         $primaryDependencyTwo = new PrimaryDependencyTwo();
-        $this->container->add(PrimaryDependencyTwo::class, $primaryDependencyTwo);
-        $this->container->add(TestCase::class, $this);
+        $this->addToContainer(PrimaryDependencyTwo::class, $primaryDependencyTwo);
+        $this->addToContainer(TestCase::class, $this);
 
-        $resolver = new ContainerReflectionResolver($this->container);
+        $resolver = new ContainerReflectionResolver($this->getContainer());
 
         $instance = $resolver->resolve(Primary::class);
         $this->assertInstanceOf(Primary::class, $instance);
@@ -31,7 +26,7 @@ class ContainerReflectionResolverTest extends TestCase
 
     public function testResolveWithNoConstructor()
     {
-        $resolver = new ContainerReflectionResolver($this->container);
+        $resolver = new ContainerReflectionResolver($this->getContainer());
 
         $instance = $resolver->resolve(NoConstructor::class);
         $this->assertInstanceOf(NoConstructor::class, $instance);
@@ -41,9 +36,9 @@ class ContainerReflectionResolverTest extends TestCase
     public function testResolveWithHasPrimitiveDependencyWithDefaultValue()
     {
         $primaryDependencyOne = new PrimaryDependencyOne();
-        $this->container->add(PrimaryDependencyOne::class, $primaryDependencyOne);
+        $this->addToContainer(PrimaryDependencyOne::class, $primaryDependencyOne);
 
-        $resolver = new ContainerReflectionResolver($this->container);
+        $resolver = new ContainerReflectionResolver($this->getContainer());
 
         $instance = $resolver->resolve(HasPrimitiveDependencyWithDefaultValue::class);
         $this->assertInstanceOf(HasPrimitiveDependencyWithDefaultValue::class, $instance);
@@ -55,9 +50,9 @@ class ContainerReflectionResolverTest extends TestCase
     {
         $this->expectException(\InvalidArgumentException::class);
         $primaryDependencyTwo = new PrimaryDependencyTwo();
-        $this->container->add(PrimaryDependencyTwo::class, $primaryDependencyTwo);
+        $this->addToContainer(PrimaryDependencyTwo::class, $primaryDependencyTwo);
 
-        $resolver = new ContainerReflectionResolver($this->container);
+        $resolver = new ContainerReflectionResolver($this->getContainer());
 
         $resolver->resolve(HasPrimitiveDependencyWithoutDefaultValue::class);
     }
@@ -66,7 +61,7 @@ class ContainerReflectionResolverTest extends TestCase
     {
         $this->expectException(\InvalidArgumentException::class);
 
-        $resolver = new ContainerReflectionResolver($this->container);
+        $resolver = new ContainerReflectionResolver($this->getContainer());
         $resolver->resolve(NonInstantiableTrait::class);
     }
 }
