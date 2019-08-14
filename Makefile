@@ -1,3 +1,6 @@
+validate-deps: composer.json composer.lock
+	composer validate
+
 vendor: composer.json composer.lock
 	composer install -n --prefer-dist
 
