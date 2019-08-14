@@ -3,38 +3,40 @@ name: Continuous Integration
 on: [push, pull_request]
 
 jobs:
-  PHP_7.2:
+  PHP_72:
     name: PHP 7.2 Continuous Integration
     runs-on: ubuntu-18.04
     container: 
       image: php:7.2-fpm
     steps:
-    - name: Validate composer file
-      run: |
-        composer validate
 
-    - name: Install dependencies
-      run: |
-        make vendor
+      - name: Validate composer file
+        run: |
+          composer validate
 
-    - name: Run tests
-      run: |
-        make coverage-test
+      - name: Install dependencies
+        run: |
+          make vendor
 
-  PHP_7.3:
+      - name: Run tests
+        run: |
+          make coverage-test
+
+  PHP_73:
     name: PHP 7.3 Continuous Integration
     runs-on: ubuntu-18.04
     container:
       image: php:7.3-fpm
     steps:
-    - name: Validate composer file
-      run: |
-        composer validate
 
-    - name: Install dependencies
-      run: |
-        make vendor
+      - name: Validate composer file
+        run: |
+          composer validate
 
-    - name: Run tests
-      run: |
-        make coverage-test
+      - name: Install dependencies
+        run: |
+          make vendor
+
+      - name: Run tests
+        run: |
+          make coverage-test
