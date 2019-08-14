@@ -1,0 +1,4 @@
+action "Composer Validate" {
+  uses = "pxgamer/composer-action@master"
+  args = "validate"
+}

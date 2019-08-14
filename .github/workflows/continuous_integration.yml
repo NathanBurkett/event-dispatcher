@@ -11,14 +11,10 @@ jobs:
     steps:
 
       - name: Validate composer file
-        uses: docker://composer:latest
-        run: |
-          make validate-deps
+        uses: ./.github/actions/composer-validate
 
       - name: Install dependencies
-        uses: docker://composer:latest
-        run: |
-          make vendor
+        uses: ./.github/actions/composer-install
 
       - name: Run tests
         run: |
@@ -32,14 +28,10 @@ jobs:
     steps:
 
       - name: Validate composer file
-        uses: docker://composer:latest
-        run: |
-          make validate-deps
+        uses: ./.github/actions/composer-validate
 
       - name: Install dependencies
-        uses: docker://composer:latest
-        run: |
-          make vendor
+        uses: ./.github/actions/composer-install
 
       - name: Run tests
         run: |
