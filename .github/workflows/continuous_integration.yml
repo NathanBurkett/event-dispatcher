@@ -11,12 +11,12 @@ jobs:
     steps:
 
       - name: Validate composer file
-        uses: docker://composer:1
+        uses: docker://composer:latest
         run: |
           make validate-deps
 
       - name: Install dependencies
-        uses: docker://composer:1
+        uses: docker://composer:latest
         run: |
           make vendor
 
@@ -32,12 +32,12 @@ jobs:
     steps:
 
       - name: Validate composer file
-        uses: docker://composer:1
+        uses: docker://composer:latest
         run: |
           make validate-deps
 
       - name: Install dependencies
-        uses: docker://composer:1
+        uses: docker://composer:latest
         run: |
           make vendor
 
